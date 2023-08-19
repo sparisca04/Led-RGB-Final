@@ -1,0 +1,47 @@
+#include "mbed.h"
+#include <cstdio>
+#include <iostream>
+
+// Blinking rate in milliseconds
+#define BLINKING_RATE     50ms
+
+UnbufferedSerial pc(USBTX, USBRX, 9600);
+
+int main()
+{
+    PwmOut ledR(LED1);
+    PwmOut ledG(LED2);
+    PwmOut ledB(LED3);
+
+    ledR.period(0.01);
+    ledG.period(0.01);
+    ledB.period(0.01);
+
+    char input[3];
+
+    while (true) {
+
+    int r, g, b;   
+    
+    printf("Enter RGB in the format #RRGGBB: ");
+    scanf("%7s", input);
+
+    bool hasHash = (input[0] == '#');
+        if (hasHash) {
+            sscanf(input, "#%2x%2x%2x", &r, &g, &b);
+        } else {
+            printf("Entrada no válida") << endl;
+        }
+    
+    // Calculate PWM values
+    float pwmR = (float)r / 255.0;
+    float pwmG = (float)g / 255.0;
+    float pwmB = (float)b / 255.0;
+
+    ledR.write(1-pwmR);
+    ledG.write(1-pwmG);
+    ledB.write(1-pwmB);
+
+    ThisThread::sleep_for(BLINKING_RATE);
+    }
+}
