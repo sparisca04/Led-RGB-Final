@@ -1,7 +1,7 @@
 # Led-RGB-Final
 
 ## Integrantes:
-• Nicolás Echeverri
+• Nicolás Echeverri (cocotheloco)
 • Simón Parisca
 
 ## Descripción:
